@@ -17,10 +17,13 @@
     <input type="number" id="ipt_qnt_colmeia"><br>
     <span>Quantas caixas de abelhas foram perdidas ano passado:</span><br>
     <input type="number" id="ipt_qnt_perda"><br>
+    <br>
+    <button onclick="simulacao()">
+      Simular
+    </button>
   </div>
-  <div id="resultado">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente aut ab exercitationem sit
-    laudantium harum quae architecto amet asperiores. Adipisci rerum minus tempora temporibus nisi inventore omnis
-    consequuntur culpa corporis.</div>
+
+  <div id="resultado"></div>
   <div class="quadrado"></div>
   <div class="imagem">
     <img src="./img/Analise.jpg" alt="Analise de dados">
@@ -29,3 +32,19 @@
 </body>
 
 </html>
+
+<script>
+  function simulacao() {
+    var qnt_colmeia = Number(ipt_qnt_colmeia.value);
+    var perda = Number(ipt_qnt_perda.value)
+    var qnt_mel = qnt_colmeia * 30;
+    var lucro_anual = qnt_mel * 25;
+    var perda_mel = (perda * 30);
+    var valor_perda = perda_mel * 25;
+    var percentutal_perda = Number(perda_mel / qnt_mel) * 100;
+    var investimento =
+      resultado.innerHTML = `
+      No ano passado, houve uma perda significativa de ${percentutal_perda}% em suas colmeias, o que representou uma diminuição considerável em termos financeiros. Como resultado, a produção anual de mel foi afetada, resultando em uma perda estimada de aproximadamente R$${valor_perda} em valor de mel que poderia ter sido obtido com esses enxames
+`
+  }
+</script>
