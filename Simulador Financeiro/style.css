@@ -1,23 +1,27 @@
 body {
   background-color: #d9d9d9;
-  margin: 0; /* Remova a margem padrão do corpo para evitar espaçamento indesejado */
-  overflow: hidden; /* Para ocultar o overflow dos elementos posicionados absolutamente */
+  margin: 0;
+  overflow: hidden;
 }
 
 .imagem img {
   max-width: 30rem;
   border-radius: 5%;
   position: absolute;
-  top: 20%; /* Ajuste a posição vertical */
+  top: 20%;
   right: 6%;
   z-index: 1;
 }
-
-h1 {
+.center {
+  width: 500px;
   text-align: center;
+}
+.font {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  width: 500px;
+}
+
+h1 {
   margin-top: 10rem;
   margin-left: 2rem;
 }
@@ -34,8 +38,6 @@ button {
   background: #005376;
   color: white;
   border-radius: 10px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -44,11 +46,7 @@ button:hover {
 }
 
 .simulador {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  text-align: center;
   margin-top: 5%;
-  width: 500px;
   margin-left: 2rem;
 }
 
@@ -63,11 +61,18 @@ button:hover {
   border-radius: 5%;
 }
 
-#resultado {
-  margin-top: 1rem;
-  text-align: justify;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  width: 500px;
-  margin-left: 2rem;
+.card {
+  align-items: center;
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.75rem;
+  border-radius: 5px;
+  background-color: #fff;
+  align-items: center;
+  max-width: 8rem;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-between;
 }

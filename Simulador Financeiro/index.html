@@ -9,26 +9,29 @@
 </head>
 
 <body>
-  <h1>
+  <h1 class="center font">
     Faça uma simulação
   </h1>
-  <div class="simulador">
-    <span>Quantidade de Colmeias:</span><br>
+  <div class="simulador center font">
+    <span>Quantidade de Colmeias em seu Apiário:</span><br>
     <input type="number" id="ipt_qnt_colmeia"><br>
     <span>Quantas caixas de abelhas foram perdidas ano passado:</span><br>
     <input type="number" id="ipt_qnt_perda"><br>
     <br>
-    <button onclick="simulacao()">
+    <button onclick="simulacao()" class="button-primary">
       Simular
-    </button>
+    </button><br><br>
+    <div id="negativo" class="font center"></div>
+    <div class="cards-container center">
+      <div class="card" id="resultado1"></div>
+      <div class="card" id="resultado2"></div>
+      <div class="card" id="resultado3"></div>
+    </div>
   </div>
-
-  <div id="resultado"></div>
   <div class="quadrado"></div>
   <div class="imagem">
-    <img src="./img/Analise.jpg" alt="Analise de dados">
+    <img src="./img/Analise.jpg" alt="Análise de dados">
   </div>
-
 </body>
 
 </html>
@@ -37,14 +40,23 @@
   function simulacao() {
     var qnt_colmeia = Number(ipt_qnt_colmeia.value);
     var perda = Number(ipt_qnt_perda.value)
-    var qnt_mel = qnt_colmeia * 30;
-    var lucro_anual = qnt_mel * 25;
-    var perda_mel = (perda * 30);
-    var valor_perda = perda_mel * 25;
-    var percentutal_perda = Number(perda_mel / qnt_mel) * 100;
-    var investimento =
-      resultado.innerHTML = `
-      No ano passado, houve uma perda significativa de ${percentutal_perda}% em suas colmeias, o que representou uma diminuição considerável em termos financeiros. Como resultado, a produção anual de mel foi afetada, resultando em uma perda estimada de aproximadamente R$${valor_perda} em valor de mel que poderia ter sido obtido com esses enxames
-`
+    if (qnt_colmeia == "" || perda == "") {
+      negativo.innerHTML = `
+          <b style="color: red">É necessário preencher todos os campos!</b>
+        `;
+    } else {
+      var qnt_mel = qnt_colmeia * 30;
+      var perda_mel = perda * 30;
+      var percentutal_perda = (perda_mel / qnt_mel) * 100;
+      resultado1.innerHTML = `
+        <b>Percentual de perda</b><br>${percentutal_perda.toFixed(2)}%
+      `;
+      resultado2.innerHTML = `
+      <b>Percentual de perda</b><br>${percentutal_perda.toFixed(2)}%
+      `;
+      resultado3.innerHTML = `
+      <b>Percentual de perda</b><br>${percentutal_perda.toFixed(2)}%
+      `;
+    }
   }
 </script>
