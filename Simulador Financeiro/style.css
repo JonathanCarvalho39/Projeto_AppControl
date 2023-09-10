@@ -68,20 +68,17 @@ button:hover {
 }
 
 .card {
-  align-items: center;
   margin-top: 3rem;
-  text-align: center;
   font-size: 0.75rem;
   border-radius: 5px;
   background-color: #fff;
-  align-items: center;
   max-width: 10rem;
 }
 
-.cards-container {
+.cards {
   margin-top: -2rem;
   display: flex;
-  justify-content: space-between; /*Comando para dividir os cards em espaços iguais*/
+  justify-content: space-between;
 }
 
 #motivacao {
