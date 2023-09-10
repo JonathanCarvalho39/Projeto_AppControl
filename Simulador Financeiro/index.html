@@ -27,6 +27,7 @@
       <div class="card" id="resultado2"></div>
       <div class="card" id="resultado3"></div>
     </div>
+    <div id="motivacao"></div>
   </div>
   <div class="quadrado"></div>
   <div class="imagem">
@@ -40,29 +41,46 @@
   function simulacao() {
     var qnt_colmeia = Number(ipt_qnt_colmeia.value);
     var perda = Number(ipt_qnt_perda.value)
-    if (qnt_colmeia == "" || perda == "") {
+
+    if (qnt_colmeia == "" && perda == "") {
       negativo.innerHTML = `
           <b style="color: red">É necessário preencher todos os campos!</b>
         `;
       resultado1.innerHTML = ``;
       resultado2.innerHTML = ``;
       resultado3.innerHTML = ``;
+      motivacao.innerHTML = ``;
     } else {
       var qnt_mel = qnt_colmeia * 30;
       var perda_mel = perda * 30;
       var percentutal_perda = (perda_mel / qnt_mel) * 100;
       negativo.innerHTML = ``;
-      resultado1.innerHTML = `
-      <div class="padding"><b>Percentual de perda</b><br>${percentutal_perda.toFixed(2)}%</div>
+      if (perda <= 0) {
+        motivacao.innerHTML = `
+       <b>Invista em nosso produto e economize mão de obra!</b><br> Reduza o esforço e maximize seus ganhos. Conte conosco para melhorar a eficiência do seu apiário.
+       <b>Aproveite esta oportunidade para aumentar seus lucros!</b>
+      `
+        resultado1.innerHTML = ``;
+        resultado2.innerHTML = ``;
+        resultado3.innerHTML = ``;
+      } else {
+        motivacao.innerHTML = ` Com nosso produto, você pode reduzir perdas e maximizar seus lucros, economizando na mão de obra tendo mais controle sobre suas colmeias.<br>
+        <b>Invista</b> agora e potencialize seus ganhos!`
+        resultado1.innerHTML = `
+        <div class="padding"><b>Percentual de perda</b><br>${percentutal_perda.toFixed(2)}%</div>
       `;
 
-      resultado2.innerHTML = `
+        resultado2.innerHTML = `
       <div class="padding"><b>Total de mel perdido</b><br>${perda_mel.toFixed(2)}Kg</div>
       `;
 
-      resultado3.innerHTML = `
+        resultado3.innerHTML = `
       <div class="padding"><b>Prejuízo estimado</b><br>R$${(perda_mel * 21.5).toFixed(2)}</div>
       `;
+      }
+      if (percentutal_perda > 20) {
+        motivacao.innerHTML = ` <b>Alerta vermelho!</b><br> Você teve uma perda significativas. Não espere mais para agir. Com nosso produto, você pode evitar que esse numero aumente. garanta um futuro seguro para suas colmeias.`
+      }
     }
   }
 </script>
