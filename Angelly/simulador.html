@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=S, initial-scale=1.0">
+    <title>Simulador Financeiro</title>
+</head>
+<body>
+    <span>Quantas colmeias você tem?</span> <br>
+    <input id="input_qtd_colmeia"> <br>
+    <span>Quantas colmeias você perdeu no último ano?</span> <br>
+    <input id="input_colmeias_perdidas"> <br>
+    <span>Quantos kg de mel você produz por ano?</span> <br>
+    <input id="input_kg_mel"> <br>
+    <span>Qual o valor de venda (em reais) por kg de mel?</span> <br>
+    <input id="input_valor_venda"> <br>
+    <button onclick="simulador()"> Simular </button>
+    <div id="div_mensagem"></div>
+</body>
+</html>
+
+<script>
+    function simulador(){
+        var colmeias = Number(input_qtd_colmeia.value);
+        var kg_por_ano = Number(input_kg_mel.value);
+        var valor_mel = Number(input_valor_venda.value);
+        var colmeias_perdidas = Number(input_colmeias_perdidas.value);
+
+        var porcentagem_colmeia = (colmeias_perdidas / colmeias) * 100;
+        var perda_ano =colmeias_perdidas * kg_por_ano ;
+
+        div_mensagem.innerHTML = `Você perdeu ${porcentagem_colmeia}% das colmeias no último ano, gerando uma perda de R$ ${perda_ano} ao ano. `
+    }
+</script>
