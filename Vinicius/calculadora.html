@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Simulador financeiro</title>
 </head>
 <style>
     .a {
@@ -15,6 +16,7 @@
         display: grid;
         background-color: rgb(194, 194, 194);
     }
+
     .b {
         width: 200px;
         height: 50px;
@@ -24,6 +26,7 @@
         display: grid;
         background-color: rgb(194, 194, 194);
     }
+
     .c {
         width: 200px;
         height: 50px;
@@ -33,6 +36,7 @@
         display: grid;
         background-color: rgb(194, 194, 194);
     }
+
     .aa {
         width: 200px;
         height: 50px;
@@ -41,6 +45,7 @@
         place-items: center;
         display: grid;
     }
+
     .bb {
         width: 200px;
         height: 50px;
@@ -49,6 +54,7 @@
         place-items: center;
         display: grid;
     }
+
     .cc {
         width: 200px;
         height: 50px;
@@ -57,28 +63,53 @@
         place-items: center;
         display: grid;
     }
+
     .caixa {
         background-color: rgb(194, 194, 194)
     }
+
     .borda {
         border-radius: 50px;
+        transition: 0.3s;
     }
+
+    .cursorp {
+        cursor: pointer;
+    }
+
+    .cursort {
+        cursor: text;
+    }
+
+    .borda:hover {
+        background-color: white;
+    }
+
     .text {
         color: white;
     }
+
+    .botao {
+        transition: 0.3s;
+    }
+
+    .botao:hover {
+        background-color: white;
+    }
 </style>
+
 <body style="background-color: grey;">
     <br><br><br><br>
     <div style="display: grid; place-items: center; font-size: 20px;">
         Quantas caixas de colmeias tinha no final de 2022?
-        <input type="number" id="input_t" class="caixa borda">
+        <input type="number" id="input_t" class="caixa borda cursort">
         Quantas caixas de colmeias foram perdidas em 2022?
-        <input type="number" id="input_p" class="caixa borda">
+        <input type="number" id="input_p" class="caixa borda cursort">
         Quantos kilos de mel foi feito por caixa nesse ano? (KG)
-        <input type="number" id="input_k" class="caixa borda">
+        <input type="number" id="input_k" class="caixa borda cursort">
         Qual o preço do mel? (em R$)
-        <input type="number" id="input_pm" class="caixa borda"><br>
-        <button onclick="calcular()" class="caixa borda" style="font-size: 25px;">Calcular</button><br>
+        <input type="number" id="input_pm" class="caixa borda cursort"><br>
+        <button onclick="calcular()" class="caixa borda botao cursorp" style="font-size: 25px;">Calcular</button><br>
         <div id="div_a"></div><br><br>
         <div id="div_c"></div><br><br>
         <div id="div_aa"></div><br><br><br>
@@ -89,59 +120,60 @@
         <div id="div_d"></div>
     </div>
 </body>
+
 </html>
 <script>
-function calcular() {
-    var tinha = Number(input_t.value)
-    var perda = Number(input_p.value)
-    var kilo = Number(input_k.value)
-    var preço = Number(input_pm.value)
-    var perdav = perda * kilo * preço
-    var tevev = tinha * kilo * preço
-    var teriav = (tinha + perda) * kilo * preço
-    const perdavv = perdav
-    const tevevv = tevev
-    const teriavv = teriav
-    const moeda = new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL' }).format(perdavv);
-    const dinheiro = new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL' }).format(tevevv);
-    const valor = new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL' }).format(teriavv);
-    div_a.innerHTML =`
+    function calcular() {
+        var tinha = Number(input_t.value)
+        var perda = Number(input_p.value)
+        var kilo = Number(input_k.value)
+        var preço = Number(input_pm.value)
+        var perdav = perda * kilo * preço
+        var tevev = tinha * kilo * preço
+        var teriav = (tinha + perda) * kilo * preço
+        const perdavv = perdav
+        const tevevv = tevev
+        const teriavv = teriav
+        const moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(perdavv);
+        const dinheiro = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(tevevv);
+        const valor = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(teriavv);
+        div_a.innerHTML = `
     <div Class="aa"><span>Colmeias</span></div>
     <div Class="bb"><span>Mel (KG)</span></div>
     <div Class="cc"><span>Venda (R$)</span></div>
     `
-    div_aa.innerHTML =`
+        div_aa.innerHTML = `
     <div Class="aa"><span class="text">Sem ApiControl</span></div>
     <div Class="bb"><span class="text">Sem ApiControl</span></div>
     <div Class="cc"><span class="text">Sem ApiControl</span></div>
     `
-    div_c.innerHTML =`
-    <div Class="a borda" style="border: 2px solid red;"><span style="color: red;">PERDEU</span>-${((perda / tinha) * 100).toFixed(2)}%</div>
-    <div Class="b borda" style="border: 2px solid red;"><span style="color: red;">PERDEU</span>${perda * kilo}KG</div>
-    <div Class="c borda" style="border: 2px solid red;"><span style="color: red;">PERDEU</span>${moeda}</div>
+        div_c.innerHTML = `
+    <div Class="a borda cursorp" style="border: 2px solid red;"><span style="color: red;">PERDEU</span>-${((perda / tinha) * 100).toFixed(2)}%</div>
+    <div Class="b borda cursorp" style="border: 2px solid red;"><span style="color: red;">PERDEU</span>${perda * kilo}KG</div>
+    <div Class="c borda cursorp" style="border: 2px solid red;"><span style="color: red;">PERDEU</span>${moeda}</div>
     `
-    div_aaa.innerHTML =`
+        div_aaa.innerHTML = `
     <div Class="aa"><span class="text">Sem ApiControl</span></div>
     <div Class="bb"><span class="text">Sem ApiControl</span></div>
     <div Class="cc"><span class="text">Sem ApiControl</span></div>
     `
-    div_cc.innerHTML =`
-    <div Class="a borda" style="border: 2px solid black;"><span style="color: black;">TEVE</span>100%</div>
-    <div Class="b borda" style="border: 2px solid black;"><span style="color: black;">TEVE</span>${tinha * kilo}KG</div>
-    <div Class="c borda" style="border: 2px solid black;"><span style="color: black;">TEVE</span>${dinheiro}</div>
+        div_cc.innerHTML = `
+    <div Class="a borda cursorp" style="border: 2px solid black;"><span style="color: black;">TEVE</span>${100 - ((perda / tinha) * 100).toFixed(2)}%</div>
+    <div Class="b borda cursorp" style="border: 2px solid black;"><span style="color: black;">TEVE</span>${tinha * kilo}KG</div>
+    <div Class="c borda cursorp" style="border: 2px solid black;"><span style="color: black;">TEVE</span>${dinheiro}</div>
     `
-    div_aaaa.innerHTML =`
+        div_aaaa.innerHTML = `
     <div Class="aa"><span class="text">Com ApiControl</span></div>
     <div Class="bb"><span class="text">Com ApiControl</span></div>
     <div Class="cc"><span class="text">Com ApiControl</span></div>
     `
-    div_ccc.innerHTML =`
-    <div Class="a borda" style="border: 2px solid green;"><span style="color: green;">TERIA</span>+${((perda / tinha) * 100).toFixed(2)}%</div>
-    <div Class="b borda" style="border: 2px solid green;"><span style="color: green;">TERIA</span>${(tinha + perda) * kilo}KG</div>
-    <div Class="c borda" style="border: 2px solid green;"><span style="color: green;">TERIA</span>${valor}</div>
+        div_ccc.innerHTML = `
+    <div Class="a borda cursorp" style="border: 2px solid green;"><span style="color: green;">TERIA</span>+${((perda / tinha) * 100).toFixed(2)}%</div>
+    <div Class="b borda cursorp" style="border: 2px solid green;"><span style="color: green;">TERIA</span>${(tinha + perda) * kilo}KG</div>
+    <div Class="c borda cursorp" style="border: 2px solid green;"><span style="color: green;">TERIA</span>${valor}</div>
     `
-    div_d.innerHTML =`
+        div_d.innerHTML = `
     <span style="font-size: 25px;">Com nosso projeto sua empresa deixaria de perder abelhas e aumentaria a produção de mel</span>
     `
-}
+    }
 </script>
