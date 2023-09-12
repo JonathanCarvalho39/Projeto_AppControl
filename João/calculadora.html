@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApiControl</title>
+</head>
+
+<body>
+  <h1>Faça uma simulação</h1>
+  <div>
+    <span>Quantidade de Colmeias em seu Apiário anos passado:</span>
+    <input type="number" id="inputQtdColmeia"><br>
+    <span>Quantas caixas de abelhas foram perdidas ano passado:</span>
+    <input type="number" id="inputQtdPerda"><br>
+    <span>Quantos kilos são produzidos em cada caixa:</span>
+    <input type="number" id="inputQuilos"><br>
+    <span>Valor do kilo do mel:</span>
+    <input type="number" id="inputValorQuilos"><br>
+    <button onclick="simulacao()">Calcular</button>
+    <div id="negativo"></div>
+    <div>
+      <div id="resultado1"></div>
+      <div id="resultado2"></div>
+      <div id="resultado3"></div>
+    </div>
+    <div id="motivacao"></div>
+  </div>
+</body>
+</html>
+
+<script>
+  function simulacao() {
+    var qtdColmeia = Number(inputQtdColmeia.value);
+    var perda = Number(inputQtdPerda.value);
+    var kg = Number(inputQuilos.value);
+    var valor = Number(inputValorQuilos.value);
+
+    if (qtdColmeia == perda) {
+      negativo.innerHTML = `É necessário preencher todos os campos!`;
+    } else {
+      var qtdMel = qtdColmeia * kg;
+      var perdaMel = perda * kg;
+      var percentutalPerda = (perdaMel / qtdMel) * 100;
+
+      if (perda <= 0) {
+        motivacao.innerHTML = `
+       Invista em nosso produto e economize mão de obra! Reduza o esforço e maximize seus ganhos. Conte conosco para melhorar a eficiência do seu apiário.<br> Aproveite esta oportunidade para aumentar seus lucros!`
+
+      } else {
+        motivacao.innerHTML = `Com nosso produto, você pode reduzir perdas e maximizar seus lucros, economizando na mão de obra tendo mais controle sobre suas colmeias.<br>Invistaagora e potencialize seus ganhos!`
+
+        resultado1.innerHTML = `Percentual de perda</b><br>${percentutalPerda.toFixed(2)}%`;
+
+        resultado2.innerHTML = `Total de mel perdido<br>${perdaMel.toFixed(2)}Kg`;
+
+        resultado3.innerHTML = `Prejuízo estimado<br>R$${(perdaMel * valor).toFixed(2)}`;
+      }
+      if (percentutal_perda > 20) {
+        motivacao.innerHTML = `Alerta vermelho! Você teve uma perda significativas. Não espere mais para agir. Com nosso produto, você pode evitar que esse numero aumente. garanta um futuro seguro para suas colmeias.`
+      }
+    }
+  }
+</script>
