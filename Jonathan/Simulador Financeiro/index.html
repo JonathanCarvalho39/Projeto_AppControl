@@ -13,24 +13,29 @@
     Faça uma simulação
   </h1>
   <div class="simulador center font">
-    <span>Quantidade de Colmeias em seu Apiário anos passado:</span><br>
+    <span style="white-space: nowrap;">Quantidade de Colmeias em seu Apiário no começo do ano passado:</span><br>
     <input type="number" id="ipt_qnt_colmeia"><br>
-    <span>Quantas caixas de abelhas foram perdidas ano passado:</span><br>
+    <span style=" white-space: nowrap;">Colmeias que foram perdidas no final do ano passado:</span><br>
     <input type="number" id="ipt_qnt_perda"><br>
-    <span>Quantos kilos são produzidos em cada caixa:</span><br>
+    <span>Quantos kilos são produzidos por caixa:</span><br>
     <input type="number" id="ipt_kilos"><br>
     <span>Valor do kilo do mel:</span><br>
     <input type="number" id="ipt_valor_kilos"><br>
-    <br>
+
     <button onclick="simulacao()">
       Simular
-    </button><br><br>
+    </button><br>
     <div id="negativo" class="font center"></div>
     <div class="cards">
       <div class="card" id="resultado1"></div>
       <div class="card" id="resultado2"></div>
       <div class="card" id="resultado3"></div>
     </div>
+    <div id="comApicontrol">
+    </div>
+    <div id="semApicontrol">
+    </div>
+
     <div id="motivacao"></div>
   </div>
   <div class="quadrado"></div>
@@ -69,6 +74,8 @@
         resultado1.innerHTML = ``;
         resultado2.innerHTML = ``;
         resultado3.innerHTML = ``;
+        semApicontrol.innerHTML = ``;
+        comApicontrol.innerHTML = ``;
       } else {
         motivacao.innerHTML = ` Com nosso produto, você pode reduzir perdas e maximizar seus lucros, economizando na mão de obra tendo mais controle sobre suas colmeias.<br>
         <b>Invista</b> agora e potencialize seus ganhos!`
@@ -82,6 +89,14 @@
 
         resultado3.innerHTML = `
       <div class="padding"><b>Prejuízo estimado</b><br>R$${(perda_mel * valor).toFixed(2)}</div>
+      `;
+
+        comApicontrol.innerHTML = `
+      <b>Estimativa de faturamento total sem o prejuizo R$${(qnt_colmeia * kilo) * valor}</b>
+
+      `
+        semApicontrol.innerHTML = `
+      <b>Estimativa de faturamento do ano R$${((qnt_colmeia - perda) * kilo) * valor} </b>
       `;
       }
       if (percentutal_perda > 20) {

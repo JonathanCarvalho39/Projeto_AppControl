@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro</title>
+</head>
+<body>
+    <b>Faça uma simulação!</b> <br>
+    Quantidade de caixas de Colmeias totais do ano passado(descontando a perda): <input type="number" id="input_caixas_totais"> <br>
+    Quantidade de caixas perdidas no ano passado: <input type="number" id="input_caixas_perdidas"> <br>
+    Quantidade em kilos (kg) de mel feito por caixas nesse ano: <input type="number" id="input_kilos_mel"> <br>
+    Preço do mel em reais (R$) por kilos: <input type="number" id="input_preco"> <br>
+    <button onclick="simular()">Simular</button> <br><br>
+    <div id="div_exibir">
+
+    </div>
+</body>
+</html>
+<script>
+    function simular() {
+        var caixas_ano = Number(input_caixas_totais.value);
+        var caixas_perdidas = Number(input_caixas_perdidas.value);
+        var mel = Number(input_kilos_mel.value);
+        var preco = Number(input_preco.value);
+        var caixa_total_ano_passado = caixas_ano + caixas_perdidas;
+        var perda_caixa = (caixas_perdidas * 100) / caixa_total_ano_passado;
+        var caixas_totais = caixas_ano - perda_caixa;
+
+        div_exibir.innerHTML = `
+        <b>Colmeias</b> <br>
+        Perdeu: ${perda_caixa}% <br>
+        Obteve no final: ${100 - perda_caixa}% <br>
+        <span style="color: red">Com a ApiControl: +${perda_caixa}% </span><br> <br>
+
+        <b>Mel (kg)</b> <br>
+        Perdeu: ${mel * caixas_perdidas}kg <br>
+        Obteve: ${mel * caixas_ano}kg <br>
+        <span style="color: red">Com a ApiControl: ${(caixas_totais + caixas_perdidas) * mel}kg </span><br> <br>
+
+        <b>Venda (R$)</b> <br>
+        Perdeu: R$ ${(mel * preco) * caixas_perdidas} <br>
+        Obteve: R$ ${(mel * preco) * caixas_ano}<br>
+        <span style="color: red">Com a ApiControl: R$${(caixas_totais + caixas_perdidas) * mel * preco} </span> <br>
+        `
+    }
+    
+</script>
