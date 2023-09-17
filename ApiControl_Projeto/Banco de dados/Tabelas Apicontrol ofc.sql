@@ -83,7 +83,13 @@ update colmeia set localizacao = 'corredor 3'
 update sensor set temperatura = 38.5
 	where id_sensor = 103;
     
-    
+select * from colmeia;
+
+update colmeia set fk_especie = 200
+	where id_colmeia in(1,2,3,4);
+update colmeia set fk_especie = 203
+	where id_colmeia in (5,6);
+
 -- adicionando uma constrain na colmeia
 Alter table colmeia add column status_colmeia varchar(15)
 	constraint chkstatus check (status_colmeia in ('Ideal','Médio','Crítico'));
@@ -111,6 +117,12 @@ insert into colmeia (especie, descricao, status_colmeia, fksensor_id) values
     ('Mandaçaia', 'Colmeia Revisada no ano de 2023 ', 'Crítico', 104),
     ('Uruçu', 'esta colmeia produziu bem ano passado', 'Médio', 105);
     
+insert into colmeia (especie, descricao, status_colmeia, fksensor_id, fk_usuario) values
+	('Apis', 'Enxame sem Rainha', 'Critico', 106, 1002),
+    ('Apis', 'Enxame forte', 'Ideal', 107, 1002),
+    ('Apis', 'Enxame fraco', 'Crítico', 108, 1002);
+
+-- asociando o a colmeia ao id do usuario
 update colmeia set fk_usuario = 1000
 	where id_colmeia = 1;
 update colmeia set fk_usuario = 1000
@@ -119,6 +131,42 @@ update colmeia set fk_usuario = 1001
 	where id_colmeia = 3;
 
 select * from colmeia;
+    
+    
+    
+create table especie (
+id_especie int primary key auto_increment,
+nome varchar (40),
+tipo varchar(30),
+media_producao_ano float null,
+temperatura_ideal float null,
+umidade_ideal float null,
+media_valor_mel_kg float null)auto_increment = 200;
+
+drop table especie;
+
+
+
+insert into especie (nome, tipo, media_producao_ano, media_valor_mel_kg) values
+	('Abelha Europeia', 'Apis mellifera', 28, 30),
+    ('Abelha Mandaçaia', 'Melipona quadrifasciata',null, null),
+    ('Abelha Uruçu', 'Melipona scutellaris', null, null),
+    ('Abelha jataí', 'Tetragonisca Angustula', 15, 180),
+    ('Abelha uruçu-amarela', 'Melipona rufiventris', 5, 400);
+
+select * from especie;
+
+-- Apagando a coluna especie da tabela colmeia para criar outra que vem de fora
+alter table colmeia drop column especie;
+
+-- adicionando a coluna para receber a chave estrageira 
+alter table colmeia add column fk_especie int;
+
+-- auterando a coluna para ser uma chave estrajeira
+alter table colmeia add constraint fkesp
+	foreign key (fk_especie)
+		references especie(id_especie);
+
 
 
 
@@ -141,8 +189,23 @@ select status_colmeia as STATUS_DA_COLMEIA, usuario.nome as NOME_DO_APIARIO, col
 		on id_usuario = fk_usuario
 			join endereco 
 				on id_endereco = fk_endereco
-					where id_usuario = 1000;
+					where id_usuario in (1002, 1000);
+                    
+select id_usuario, usuario.nome as NOME_APIARIO,  especie.nome as NOME_ABELHA, colmeia.status_colmeia as STATUS_DA_COLMEIA, sensor.temperatura as TEMPERATURA_ATUAL, especie.temperatura_ideal as TEMPERATURA_IDEAL
+	from usuario join colmeia
+		on id_usuario = fk_usuario
+			join especie
+				on id_especie = fk_especie
+					join sensor
+						on id_sensor = fksensor_id
+							where id_usuario = 1002;
 					
+select * from colmeia;
 select * from usuario;
+select * from sensor;
+select * from especie;
+
 
 truncate table colmeia;
+
+desc colmeia
